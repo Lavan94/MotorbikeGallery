@@ -1,0 +1,32 @@
+@mixin full-size
+  width: auto
+  height: auto
+
+@mixin place-component-on-row($row_index)
+  grid-row: $row_index
+  grid-column: auto
+
+.container
+  @include full-size
+
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  position: absolute
+
+  display: grid
+  grid-template-rows: 0.1fr 0.8fr 0.1fr
+  grid-template-columns: auto
+
+.header
+  @include full-size
+  @include place-component-on-row(1)
+
+.content
+  @include full-size
+  @include place-component-on-row(2)
+
+.footer
+  @include full-size
+  @include place-component-on-row(3)
