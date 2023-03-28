@@ -1,11 +1,18 @@
-<mat-sidenav-container class="sidenav-container">
+<mat-sidenav-container (backdropClick)="backdropClick()" class="sidenav-container">
   <mat-sidenav #drawer class="sidenav" fixedInViewport
-      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-      [mode]="(isHandset$ | async) ? 'over' : 'side'"
-      [opened]="(isHandset$ | async) === false">
-    <mat-toolbar>Menu</mat-toolbar>
+      [opened]="showMenu === true"
+      (keydown.escape)="backdropClick()">
+
+    <button mat-raised-button color="accent"
+      aria-label="Toggle sidenav"
+      mat-icon-button
+      (click)="clickMenuButton()"
+      *ngIf="showMenu === true"
+    >
+      <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+    </button>
     <mat-nav-list>
-      <a mat-list-item href="#">Link 1</a>
+      <a mat-list-item (click)="openDialog()">Contact Us</a>
       <a mat-list-item href="#">Link 2</a>
       <a mat-list-item href="#">Link 3</a>
     </mat-nav-list>
@@ -13,14 +20,15 @@
   <mat-sidenav-content>
     <mat-toolbar color="primary">
       <button
-        type="button"
+        mat-raised-button color="accent"
         aria-label="Toggle sidenav"
         mat-icon-button
-        (click)="drawer.toggle()"
-        *ngIf="isHandset$ | async">
+        (click)="clickMenuButton()"
+        *ngIf="showMenu === false"
+      >
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>motorbike-gallery</span>
+      <span>o2o Gallery</span>
     </mat-toolbar>
     <!-- Add Content Here -->
   </mat-sidenav-content>
