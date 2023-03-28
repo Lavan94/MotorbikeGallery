@@ -23,6 +23,13 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatDialogModule} from '@angular/material/dialog';
 import {ReactiveFormsModule} from '@angular/forms';
 
+import {AngularFireModule} from "@angular/fire/compat";
+import {AngularFireStorageModule} from "@angular/fire/compat/storage";
+import {AngularFireDatabaseModule} from "@angular/fire/compat/database";
+
+
+import {environment} from "../environments/environment";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,7 +55,10 @@ import {ReactiveFormsModule} from '@angular/forms';
     MatSelectModule,
     MatRadioModule,
     MatDialogModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireStorageModule,
+    AngularFireDatabaseModule
   ],
   providers: [],
   bootstrap: [AppComponent]

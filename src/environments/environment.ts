@@ -3,7 +3,17 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebaseConfig : {
+    apiKey: "AIzaSyDFPxkOhdmRYe7XMYoj0B1L-i6CT33QPns",
+    authDomain: "motorbike-gallery.firebaseapp.com",
+    databaseURL: "https://motorbike-gallery-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "motorbike-gallery",
+    storageBucket: "motorbike-gallery.appspot.com",
+    messagingSenderId: "272089719185",
+    appId: "1:272089719185:web:183da97d0dc9be548afa30",
+    measurementId: "G-XD2XXNFX05"
+  }
 };
 
 /*
