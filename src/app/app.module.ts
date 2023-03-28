@@ -11,7 +11,6 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
-import {GalleryDashboardComponent} from './gallery-content/gallery-dashboard/gallery-dashboard.component';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatCardModule} from '@angular/material/card';
 import {MatMenuModule} from '@angular/material/menu';
@@ -29,14 +28,20 @@ import {AngularFireDatabaseModule} from "@angular/fire/compat/database";
 
 
 import {environment} from "../environments/environment";
+import { AssetUploadFormComponent } from './gallery/asset-upload/asset-upload-form.component';
+import {MatTableModule} from "@angular/material/table";
+import { AssetListComponent } from './gallery/asset-list/asset-list.component';
+import { AssetGalleryComponent } from './gallery/asset-gallery/asset-gallery.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponentComponent,
-    GalleryDashboardComponent,
     FooterComponentComponent,
-    ContactFormComponent
+    ContactFormComponent,
+    AssetUploadFormComponent,
+    AssetListComponent,
+    AssetGalleryComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +63,8 @@ import {environment} from "../environments/environment";
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireStorageModule,
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    MatTableModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
