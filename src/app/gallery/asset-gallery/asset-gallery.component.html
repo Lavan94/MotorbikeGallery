@@ -1,0 +1,9 @@
+  <mat-card class="category-container" *ngFor="let entry of assetCategoryMap | keyvalue">
+    <mat-card-title>
+      {{entry.key}}
+    </mat-card-title>
+    <mat-card-content class="slider-container">
+        <app-asset-slider [assets]="entry.value"></app-asset-slider>
+    </mat-card-content>
+  </mat-card>
+

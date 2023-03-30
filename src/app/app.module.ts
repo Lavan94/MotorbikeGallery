@@ -32,6 +32,7 @@ import { AssetUploadFormComponent } from './gallery/asset-upload/asset-upload-fo
 import {MatTableModule} from "@angular/material/table";
 import { AssetListComponent } from './gallery/asset-list/asset-list.component';
 import { AssetGalleryComponent } from './gallery/asset-gallery/asset-gallery.component';
+import { AssetSliderComponent } from './gallery/asset-gallery/asset-slider/asset-slider.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { AssetGalleryComponent } from './gallery/asset-gallery/asset-gallery.com
     ContactFormComponent,
     AssetUploadFormComponent,
     AssetListComponent,
-    AssetGalleryComponent
+    AssetGalleryComponent,
+    AssetSliderComponent
   ],
   imports: [
     BrowserModule,
