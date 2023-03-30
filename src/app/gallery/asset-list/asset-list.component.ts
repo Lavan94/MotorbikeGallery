@@ -14,8 +14,8 @@ export class AssetListComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(this.assetService.imageDetailList) {
-      this.assetService.imageDetailList.snapshotChanges().subscribe(
+    if(this.assetService.assetList) {
+      this.assetService.assetList.snapshotChanges().subscribe(
         (list: any[]) => {
           this.imageList = list.map(item => {
             return item.payload.val();

@@ -3,7 +3,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AngularFireStorage} from "@angular/fire/compat/storage";
 import {finalize} from "rxjs";
 import {AssetService} from "../asset.service";
-import {ASSET_CATEGORIES} from "../Asset";
+import {Asset, ASSET_CATEGORIES} from "../Asset";
 
 @Component({
   selector: 'app-asset-upload',
@@ -14,7 +14,6 @@ export class AssetUploadFormComponent implements OnInit {
   imgSrc: string = "";
   selectedAsset: any = null;
   isSubmitted: boolean = false;
-  categoryType: string = "Auto"
   assetCategories = ASSET_CATEGORIES;
 
   formTemplate = new FormGroup({
@@ -42,16 +41,16 @@ export class AssetUploadFormComponent implements OnInit {
     }
   }
 
-  onSubmit(formValue: { name: string; category: string; assetUrl: string }) {
+  onSubmit(assetValue: Asset) {
     this.isSubmitted = true;
     if (this.formTemplate.valid) {
-      var filePath = `${formValue.category}/${this.selectedAsset.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
+      var filePath = `${assetValue.category}/${this.selectedAsset.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
       const fileRef = this.angularFireStorage.ref(filePath);
       this.angularFireStorage.upload(filePath, this.selectedAsset).snapshotChanges().pipe(
         finalize(() => {
           fileRef.getDownloadURL().subscribe((url) => {
-            formValue['assetUrl'] = url;
-            this.assetService.insertImageDetails(formValue);
+            assetValue['assetUrl'] = url;
+            this.assetService.addAsset(assetValue);
             this.resetForm();
           })
         })

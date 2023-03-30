@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
 import {AngularFireDatabase, AngularFireList} from "@angular/fire/compat/database";
+import {Asset} from "./Asset";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AssetService {
-  imageDetailList: AngularFireList<any> | undefined;
+  assetList: AngularFireList<Asset> | undefined;
   constructor(private firebase: AngularFireDatabase) { }
 
-  getImageDetailList() {
-    this.imageDetailList = this.firebase.list('imageDetails');
-    return this.imageDetailList;
+  getAssetList(): AngularFireList<Asset> {
+    this.assetList = this.firebase.list('assetList');
+    return this.assetList;
   }
 
-  insertImageDetails(imageDetails: { name: string; category: string; assetUrl: string }) {
-    if(this.imageDetailList) this.imageDetailList.push(imageDetails);
+  addAsset(asset: Asset) {
+    if(this.assetList) this.assetList.push(asset);
   }
 }

@@ -2,7 +2,7 @@ export class Asset {
   constructor(
     public name: string,
     public category: string,
-    public assetFile: File
+    public assetUrl: string
   ) {
   }
 }

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AssetService} from "../asset.service";
-import {AngularFireList} from "@angular/fire/compat/database";
+import {Asset} from "../Asset";
 
 @Component({
   selector: 'app-asset-gallery',
@@ -8,12 +8,29 @@ import {AngularFireList} from "@angular/fire/compat/database";
   styleUrls: ['./asset-gallery.component.sass']
 })
 export class AssetGalleryComponent implements OnInit {
-  assetList: AngularFireList<any> | undefined;
+  assetCategoryMap: Map<string, Asset[]> = new Map<string, Asset[]>();
+
   constructor(private assetService: AssetService) {
   }
 
   ngOnInit() {
-    this.assetList = this.assetService.getImageDetailList();
+    var imageDetails = this.assetService.getAssetList().snapshotChanges().subscribe(
+      (list: any[]) => {
+        var results = list.map(item => {
+          return item.payload.val() as Asset
+        });
+        results.map(result => result.category).forEach(category => this.assetCategoryMap.set(category, []))
+        results.forEach(result => {
+            if(this.assetCategoryMap && result.category && this.assetCategoryMap.has(result.category)) {
+              // @ts-ignore
+              this.assetCategoryMap.get(result.category).push(result);
+            }
+        }
+        );
+        console.log(this.assetCategoryMap)
+      }
+    );
+    console.log(this.assetCategoryMap)
   }
 
 }
