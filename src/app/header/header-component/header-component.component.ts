@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {ContactFormComponent} from "../contact-form/contact-form.component";
+import {AssetUploadFormComponent} from "../../gallery/asset-upload/asset-upload-form.component";
 
 @Component({
   selector: 'app-header-component',
@@ -27,8 +28,8 @@ export class HeaderComponentComponent {
 
   constructor(private breakpointObserver: BreakpointObserver, public dialog: MatDialog) {}
 
-  openDialog() {
-    this.dialog.open(ContactFormComponent);
+  openDialog(dialogType: string) {
+    dialogType === 'contact-form' ? this.dialog.open(ContactFormComponent) : this.dialog.open(AssetUploadFormComponent)
   }
 
 }

@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AngularFireStorage} from "@angular/fire/compat/storage";
 import {finalize} from "rxjs";
 import {AssetService} from "../asset.service";
+import {ASSET_CATEGORIES} from "../Asset";
 
 @Component({
   selector: 'app-asset-upload',
@@ -11,16 +12,18 @@ import {AssetService} from "../asset.service";
 })
 export class AssetUploadFormComponent implements OnInit {
   imgSrc: string = "";
-  selectedImage: any = null;
+  selectedAsset: any = null;
   isSubmitted: boolean = false;
+  categoryType: string = "Auto"
+  assetCategories = ASSET_CATEGORIES;
 
   formTemplate = new FormGroup({
-    caption: new FormControl('', Validators.required),
+    name: new FormControl('', Validators.required),
     category: new FormControl(''),
-    imageUrl: new FormControl('', Validators.required)
+    assetUrl: new FormControl('', Validators.required)
   })
 
-  constructor(private storage: AngularFireStorage, private assetService: AssetService) {
+  constructor(private angularFireStorage: AngularFireStorage, private assetService: AssetService) {
   }
 
   ngOnInit() {
@@ -32,22 +35,22 @@ export class AssetUploadFormComponent implements OnInit {
       const reader = new FileReader();
       reader.onload = (e: any) => this.imgSrc = e.target.result;
       reader.readAsDataURL(event.target.files[0]);
-      this.selectedImage = event.target.files[0];
+      this.selectedAsset = event.target.files[0];
     } else {
       this.imgSrc = '/assets/img/image_placeholder.jpg';
-      this.selectedImage = null;
+      this.selectedAsset = null;
     }
   }
 
-  onSubmit(formValue: { caption: string; category: string; imageUrl: string }) {
+  onSubmit(formValue: { name: string; category: string; assetUrl: string }) {
     this.isSubmitted = true;
     if (this.formTemplate.valid) {
-      var filePath = `${formValue.category}/${this.selectedImage.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
-      const fileRef = this.storage.ref(filePath);
-      this.storage.upload(filePath, this.selectedImage).snapshotChanges().pipe(
+      var filePath = `${formValue.category}/${this.selectedAsset.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
+      const fileRef = this.angularFireStorage.ref(filePath);
+      this.angularFireStorage.upload(filePath, this.selectedAsset).snapshotChanges().pipe(
         finalize(() => {
           fileRef.getDownloadURL().subscribe((url) => {
-            formValue['imageUrl'] = url;
+            formValue['assetUrl'] = url;
             this.assetService.insertImageDetails(formValue);
             this.resetForm();
           })
@@ -63,12 +66,12 @@ export class AssetUploadFormComponent implements OnInit {
   resetForm() {
     this.formTemplate.reset();
     this.formTemplate.setValue({
-      caption: '',
-      imageUrl: '',
-      category: 'Animal'
+      name: '',
+      assetUrl: '',
+      category: 'Auto-Moto'
     });
     this.imgSrc = '/assets/img/image_placeholder.jpg';
-    this.selectedImage = null;
+    this.selectedAsset = null;
     this.isSubmitted = false;
   }
 }

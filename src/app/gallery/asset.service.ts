@@ -10,9 +10,10 @@ export class AssetService {
 
   getImageDetailList() {
     this.imageDetailList = this.firebase.list('imageDetails');
+    return this.imageDetailList;
   }
 
-  insertImageDetails(imageDetails: { caption: string; category: string; imageUrl: string; }) {
+  insertImageDetails(imageDetails: { name: string; category: string; assetUrl: string }) {
     if(this.imageDetailList) this.imageDetailList.push(imageDetails);
   }
 }
