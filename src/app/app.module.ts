@@ -34,6 +34,8 @@ import { AssetListComponent } from './gallery/asset-list/asset-list.component';
 import { AssetGalleryComponent } from './gallery/asset-gallery/asset-gallery.component';
 import { AssetSliderComponent } from './gallery/asset-gallery/asset-slider/asset-slider.component';
 
+import { AssetRotatorComponent } from './gallery/asset-gallery/asset-rotator/asset-rotator.component'
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,7 +45,8 @@ import { AssetSliderComponent } from './gallery/asset-gallery/asset-slider/asset
     AssetUploadFormComponent,
     AssetListComponent,
     AssetGalleryComponent,
-    AssetSliderComponent
+    AssetSliderComponent,
+    AssetRotatorComponent
   ],
   imports: [
     BrowserModule,

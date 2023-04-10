@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Asset} from "../../Asset";
 
 @Component({
@@ -9,6 +9,7 @@ import {Asset} from "../../Asset";
 export class AssetSliderComponent implements OnInit {
 
   @Input() assets: Asset[] = [];
+  @Output() currentAsset = new EventEmitter<Asset>()
 
   currentIndex: number = 0;
   timeoutId?: number;
@@ -26,6 +27,7 @@ export class AssetSliderComponent implements OnInit {
       : this.currentIndex - 1;
 
     this.currentIndex = newIndex;
+    this.currentAsset.emit(this.assets[this.currentIndex])
   }
 
   goToNext(): void {
@@ -33,10 +35,12 @@ export class AssetSliderComponent implements OnInit {
     const newIndex = isLastSlide ? 0 : this.currentIndex + 1;
 
     this.currentIndex = newIndex;
+    this.currentAsset.emit(this.assets[this.currentIndex])
   }
 
   goToSlide(slideIndex: number): void {
     this.currentIndex = slideIndex;
+    this.currentAsset.emit(this.assets[this.currentIndex])
   }
 
   getCurrentSlideUrl() {

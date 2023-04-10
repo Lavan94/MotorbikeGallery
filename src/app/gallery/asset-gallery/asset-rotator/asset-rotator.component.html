@@ -1,0 +1,15 @@
+<mat-card>
+<mat-card-title>
+  {{asset.name}}
+</mat-card-title>
+  <mat-card-content>
+    <img [src]="this.asset.assetUrl">
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-stroked-button color="accent">+ 45</button>
+    <button mat-stroked-button color="accent">+ 90</button>
+    <button mat-stroked-button color="accent">+ 180</button>
+    <button mat-stroked-button color="accent">- 90</button>
+    <button mat-stroked-button color="accent">- 45</button>
+  </mat-card-actions>
+</mat-card>
