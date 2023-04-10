@@ -3,10 +3,17 @@
     <div (click)="goToPrevious()" class="leftArrow">❰</div>
     <div (click)="goToNext()" class="rightArrow">❱</div>
   </div>
-  <div
+  <div *ngIf="getAssetType() === 'image'"
     class="slide"
     [ngStyle]="{ 'background-image': getCurrentSlideUrl() }"
   ></div>
+  <video controls *ngIf="getAssetType() === 'video'" class="slide" [src]="getCurrentSlideUrl()"></video>
+
+  <div *ngIf="getAssetType()==='audio'" align="center" class="slide" >
+    <h1>{{getAssetName()}}</h1>
+    <audio controls  [src]="getCurrentSlideUrl()" width="350px" height="250px"></audio>
+  </div>
+
   <div class="dotsContainer">
     <div
       *ngFor="let slide of assets; let slideIndex = index"

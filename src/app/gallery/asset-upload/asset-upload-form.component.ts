@@ -3,7 +3,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AngularFireStorage} from "@angular/fire/compat/storage";
 import {finalize} from "rxjs";
 import {AssetService} from "../asset.service";
-import {Asset, ASSET_CATEGORIES} from "../Asset";
+import {Asset, ASSET_CATEGORIES, ASSET_TYPES} from "../Asset";
 
 @Component({
   selector: 'app-asset-upload',
@@ -11,8 +11,9 @@ import {Asset, ASSET_CATEGORIES} from "../Asset";
   styleUrls: ['./asset-upload.component.sass']
 })
 export class AssetUploadFormComponent implements OnInit {
-  imgSrc: string = "";
+  assetSrc: string = "";
   selectedAsset: any = null;
+  assetType: string = 'image'
   isSubmitted: boolean = false;
   assetCategories = ASSET_CATEGORIES;
 
@@ -32,16 +33,18 @@ export class AssetUploadFormComponent implements OnInit {
   showPreview(event: any) {
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
-      reader.onload = (e: any) => this.imgSrc = e.target.result;
+      reader.onload = (e: any) => this.assetSrc = e.target.result;
       reader.readAsDataURL(event.target.files[0]);
       this.selectedAsset = event.target.files[0];
+      this.assetType = this.determinAssetType();
     } else {
-      this.imgSrc = '/assets/img/image_placeholder.jpg';
+      this.assetSrc = '/assets/img/image_placeholder.jpg';
       this.selectedAsset = null;
     }
   }
 
   onSubmit(assetValue: Asset) {
+    assetValue.assetType = this.determinAssetType();
     this.isSubmitted = true;
     if (this.formTemplate.valid) {
       var filePath = `${assetValue.category}/${this.selectedAsset.name.split('.').slice(0, -1).join('.')}_${new Date().getTime()}`;
@@ -69,8 +72,15 @@ export class AssetUploadFormComponent implements OnInit {
       assetUrl: '',
       category: 'Auto-Moto'
     });
-    this.imgSrc = '/assets/img/image_placeholder.jpg';
+    this.assetSrc = '/assets/img/image_placeholder.jpg';
     this.selectedAsset = null;
     this.isSubmitted = false;
+  }
+
+  private determinAssetType() {
+     const index = ASSET_TYPES.findIndex((type) => {
+       return this.selectedAsset.type.includes(type);
+     })
+    return ASSET_TYPES[index];
   }
 }

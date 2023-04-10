@@ -40,7 +40,15 @@ export class AssetSliderComponent implements OnInit {
   }
 
   getCurrentSlideUrl() {
-    return `url('${this.assets[this.currentIndex].assetUrl}')`;
+    return this.getAssetType() === 'image' ? `url('${this.assets[this.currentIndex].assetUrl}')` : this.assets[this.currentIndex].assetUrl;
+  }
+
+  getAssetName() {
+    return this.assets[this.currentIndex].name
+  }
+
+  getAssetType(){
+    return this.assets[this.currentIndex].assetType
   }
 
 }

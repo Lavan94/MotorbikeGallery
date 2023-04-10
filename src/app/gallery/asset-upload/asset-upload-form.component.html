@@ -1,10 +1,27 @@
 <form [formGroup]="formTemplate" (submit)="onSubmit(formTemplate.value)">
   <mat-card>
     <mat-card-title>
-      <img [src]="imgSrc" width="350px" height="250px" (click)="fileUploader.click()">
+      <img *ngIf="assetType==='image'" [src]="assetSrc" width="350px" height="250px" (click)="fileUploader.click()">
+      <video controls *ngIf="assetType==='video'" [src]="assetSrc" width="350px" height="250px" (click)="fileUploader.click()"></video>
+      <div *ngIf="assetType==='audio'">
+        <table>
+          <tr>
+            <td>
+              <img [src]="'/assets/img/audio-icon.jpg'" width="350px" height="250px" (click)="fileUploader.click()">
+            </td>
+          </tr>
+          <tr>
+            <td align="center">
+              <audio controls  [src]="assetSrc" width="350px" height="250px"></audio>
+            </td>
+          </tr>
+        </table>
+      </div>
+
     </mat-card-title>
     <mat-card-content>
-      <input [hidden]="true" type="file" accept="image/*" class="form-control" #fileUploader formControlName="assetUrl"
+<!--      <input [hidden]="true" type="file" accept="image/*" class="form-control" #fileUploader formControlName="assetUrl"-->
+      <input [hidden]="true" type="file" class="form-control" #fileUploader formControlName="assetUrl"
              (change)="showPreview($event)">
       <mat-form-field appearance="fill">
         <mat-label>Name</mat-label>
