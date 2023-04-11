@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AssetRotatorComponent } from './asset-rotator.component';
+import { AssetEditorComponent } from './asset-editor.component';
 
 describe('AssetRotatorComponent', () => {
-  let component: AssetRotatorComponent;
-  let fixture: ComponentFixture<AssetRotatorComponent>;
+  let component: AssetEditorComponent;
+  let fixture: ComponentFixture<AssetEditorComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AssetRotatorComponent ]
+      declarations: [ AssetEditorComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AssetRotatorComponent);
+    fixture = TestBed.createComponent(AssetEditorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

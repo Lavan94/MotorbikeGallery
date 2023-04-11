@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AssetService} from "../asset.service";
 import {Asset} from "../Asset";
 import {MatDialog} from "@angular/material/dialog";
-import {AssetRotatorComponent} from "./asset-rotator/asset-rotator.component";
+import {AssetEditorComponent} from "./asset-rotator/asset-editor.component";
 
 @Component({
   selector: 'app-asset-gallery',
@@ -21,7 +21,9 @@ export class AssetGalleryComponent implements OnInit {
     var imageDetails = this.assetService.getAssetList().snapshotChanges().subscribe(
       (list: any[]) => {
         var results = list.map(item => {
-          return item.payload.val() as Asset
+          let asset = item.payload.val() as Asset
+          asset.id = item.key;
+          return asset;
         });
         results.map(result => result.category).forEach(category => this.assetCategoryMap.set(category, []))
         results.forEach(result => {
@@ -41,8 +43,9 @@ export class AssetGalleryComponent implements OnInit {
     this.currentAsset = newAsset
   }
 
-  rotate() {
-    this.dialog.open(AssetRotatorComponent, {
+  openEditorDialog() {
+    if(!this.currentAsset) return;
+    this.dialog.open(AssetEditorComponent, {
         data: this.currentAsset
       }
     )

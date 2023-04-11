@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, Renderer2} from '@angular/core';
 import {Asset} from "../../Asset";
 
 @Component({
@@ -14,8 +14,12 @@ export class AssetSliderComponent implements OnInit {
   currentIndex: number = 0;
   timeoutId?: number;
 
+  constructor(private renderer: Renderer2) {
+  }
+
   ngOnInit(): void {
   }
+
   ngOnDestroy() {
     window.clearTimeout(this.timeoutId);
   }
@@ -44,14 +48,22 @@ export class AssetSliderComponent implements OnInit {
   }
 
   getCurrentSlideUrl() {
-    return this.getAssetType() === 'image' ? `url('${this.assets[this.currentIndex].assetUrl}')` : this.assets[this.currentIndex].assetUrl;
+    const asset = this.assets[this.currentIndex];
+    const image = document.getElementById("asset-image");
+    if (asset.blur) {
+      this.renderer.setStyle(image, 'filter', `blur(${asset.blur}px)`)
+    }
+    if (asset.rotation || asset.scale) {
+      this.renderer.setStyle(image, 'transform', `rotate(${asset.rotation}deg) scale(${asset.scale[0]},${asset.scale[1]})`)
+    }
+    return this.assets[this.currentIndex].assetUrl;
   }
 
   getAssetName() {
     return this.assets[this.currentIndex].name
   }
 
-  getAssetType(){
+  getAssetType() {
     return this.assets[this.currentIndex].assetType
   }
 

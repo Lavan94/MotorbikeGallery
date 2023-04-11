@@ -1,0 +1,48 @@
+<mat-card  style="background: #7b1fa2">
+<mat-card-title>
+  {{asset.name}}
+</mat-card-title>
+  <mat-card-content>
+    <img id="image" [src]="this.asset.assetUrl">
+  </mat-card-content>
+  <mat-card-actions>
+    <mat-card>
+      <mat-card-title>
+        Rotate
+      </mat-card-title>
+      <mat-card-content >
+        <button mat-stroked-button color="accent" (click)="rotate(45)">+ 45</button>
+        <button mat-stroked-button color="accent" (click)="rotate(90)">+ 90</button>
+        <button mat-stroked-button color="accent" (click)="rotate(180)">+ 180</button>
+        <button mat-stroked-button color="accent" (click)="rotate(-90)">- 90</button>
+        <button mat-stroked-button color="accent" (click)="rotate(-45)">- 45</button>
+      </mat-card-content>
+    </mat-card>
+    <br>
+    <mat-card>
+      <mat-card-title>
+        Scale
+      </mat-card-title>
+      <mat-card-content >
+        <button mat-stroked-button color="accent" (click)="scale(1,1)">Reset</button>
+        <button mat-stroked-button color="accent" (click)="scale(0.5,0.5)">50% Smaller</button>
+        <button mat-stroked-button color="accent" (click)="scale(2,2)">2 Times Bigger</button>
+        <button mat-stroked-button color="accent" (click)="scale(0.5)">50% Width</button>
+        <button mat-stroked-button color="accent" (click)="scale(1,0.5)">50% Height</button>
+      </mat-card-content>
+    </mat-card>
+    <br>
+    <mat-card>
+      <mat-card-title>
+        Blur
+      </mat-card-title>
+      <mat-card-content >
+        <button mat-stroked-button color="accent" (click)="blur(0)">Reset</button>
+        <button mat-stroked-button color="accent" (click)="blur(1)">Level 1</button>
+        <button mat-stroked-button color="accent" (click)="blur(2)">Level 2</button>
+        <button mat-stroked-button color="accent" (click)="blur(5)">Level 5</button>
+        <button mat-stroked-button color="accent" (click)="blur(10)">Level 10</button>
+      </mat-card-content>
+    </mat-card>
+  </mat-card-actions>
+</mat-card>

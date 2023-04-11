@@ -34,7 +34,7 @@ import { AssetListComponent } from './gallery/asset-list/asset-list.component';
 import { AssetGalleryComponent } from './gallery/asset-gallery/asset-gallery.component';
 import { AssetSliderComponent } from './gallery/asset-gallery/asset-slider/asset-slider.component';
 
-import { AssetRotatorComponent } from './gallery/asset-gallery/asset-rotator/asset-rotator.component'
+import { AssetEditorComponent } from './gallery/asset-gallery/asset-rotator/asset-editor.component'
 
 @NgModule({
   declarations: [
@@ -46,7 +46,7 @@ import { AssetRotatorComponent } from './gallery/asset-gallery/asset-rotator/ass
     AssetListComponent,
     AssetGalleryComponent,
     AssetSliderComponent,
-    AssetRotatorComponent
+    AssetEditorComponent
   ],
   imports: [
     BrowserModule,
